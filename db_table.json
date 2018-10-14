@@ -1,0 +1,30 @@
+{
+    "//command": "aws dynamodb create-table --endpoint-url http://localhost:8000 --table-name=last_seen_recording --attribute-definitions=AttributeName=date,AttributeType=S --key-schema=AttributeName=date,KeyType=HASH --provisioned-throughput=ReadCapacityUnits=10,WriteCapacityUnits=10",
+    "TableDescription": {
+        "TableArn": "arn:aws:dynamodb:ddblocal:000000000000:table/last_seen_recording", 
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "date", 
+                "AttributeType": "S"
+            }
+        ], 
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0, 
+            "WriteCapacityUnits": 10, 
+            "LastIncreaseDateTime": 0.0, 
+            "ReadCapacityUnits": 10, 
+            "LastDecreaseDateTime": 0.0
+        }, 
+        "TableSizeBytes": 0, 
+        "TableName": "last_seen_recording", 
+        "TableStatus": "ACTIVE", 
+        "KeySchema": [
+            {
+                "KeyType": "HASH", 
+                "AttributeName": "date"
+            }
+        ], 
+        "ItemCount": 0, 
+        "CreationDateTime": 1539536814.255
+    }
+}
