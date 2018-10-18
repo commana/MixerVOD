@@ -1,5 +1,4 @@
 import json
-import boto3
 
 """
 Example JSON accepted by this script:
@@ -11,38 +10,31 @@ Example JSON accepted by this script:
 }]
 """
 
-# TODO: Remove testing code
-input = "json"
-f = open("vods.json", "r")
-input = json.load(f)
-f.close()
+def filter_recordings(dynamodb, input):
+    def db_get_ids(vods):
+        ids = []
+        for vod in vods:
+            ids.append({'date': str(vod["id"])})
+        # check database
+        response = dynamodb.batch_get_item(RequestItems={
+            'last_seen_recording': {'Keys': ids}
+        })
+        return map(lambda x: x['date'], response['Responses']['last_seen_recording'])
 
-dynamodb = boto3.resource('dynamodb', region_name='eu-central-1', endpoint_url="http://localhost:8000")
+    def db_store_ids(vods):
+        if len(vods) == 0:
+            return
+        put_items = []
+        for vod in vods:
+            put_items.append({'PutRequest': {'Item': {'date': str(vod['id'])}}})
 
-def check_ids(db, vods):
-    ids = []
-    for vod in vods:
-        ids.append({'date': str(vod["id"])})
-    # check database
-    response = dynamodb.batch_get_item(RequestItems={
-        'last_seen_recording': {'Keys': ids}
-    })
-    return map(lambda x: x['date'], response['Responses']['last_seen_recording'])
+        dynamodb.batch_write_item(RequestItems={
+            'last_seen_recording': put_items
+        })
 
-def mark_ids(db, vods):
-    if len(vods) == 0:
-        return
-    put_items = []
-    for vod in vods:
-        put_items.append({'PutRequest': {'Item': {'date': str(vod['id'])}}})
+    seen_vods = db_get_ids(input)
+    process_vods = [x for x in input if not str(x['id']) in seen_vods]
 
-    dynamodb.batch_write_item(RequestItems={
-        'last_seen_recording': put_items
-    })
+    db_store_ids(process_vods)
 
-seen_vods = check_ids(dynamodb, input)
-process_vods = [x for x in input if not str(x['id']) in seen_vods]
-
-mark_ids(dynamodb, process_vods)
-
-print json.dumps(process_vods)
+    return process_vods
