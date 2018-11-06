@@ -1,0 +1,96 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateUploadBucket",
+                "cloudformation:CancelUpdateStack",
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack",
+                "cloudformation:UpdateStack",
+                "cloudformation:UpdateTerminationProtection",
+                "cloudformation:CreateChangeSet",
+                "cloudformation:Describe*",
+                "cloudformation:ContinueUpdateRollback",
+                "cloudformation:EstimateTemplateCost",
+                "cloudformation:PreviewStackUpdate",
+                "cloudformation:List*",
+                "cloudformation:ExecuteChangeSet",
+                "cloudformation:ValidateTemplate",
+                "cloudformation:Get*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:AddPermission",
+                "lambda:InvokeFunction",
+                "lambda:DeleteFunction",
+                "lambda:PublishVersion",
+                "lambda:List*",
+                "lambda:CreateFunction",
+                "lambda:Get*",
+                "lambda:RemovePermission",
+                "lambda:CreateAlias",
+                "lambda:Update*",
+                "apigateway:GET"
+            ],
+            "Resource": [
+                "arn:aws:lambda:*:*:function:${project}*",
+                "arn:aws:apigateway:*::/restapis"
+            ]
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": "apigateway:*",
+            "Resource": "arn:aws:apigateway:*::/restapis/GATEWAY_ID/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:Describe*",
+                "ec2:createTags",
+                "ec2:CreateInternetGateway",
+                "ec2:DeleteInternetGateway",
+                "ec2:CreateVpc",
+                "ec2:DeleteVpc",
+                "ec2:ModifyVpcAttribute",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "ec2:DeleteInternetGateway",
+                "dynamodb:CreateTable",
+                "dynamodb:DescribeTable",
+                "dynamodb:DeleteTable",
+                "kinesis:CreateStream",
+                "kinesis:DescribeStream",
+                "kinesis:DeleteStream",
+                "ec2:CreateNetworkAcl",
+                "ec2:DeleteNetworkAcl",
+                "ec2:CreateRouteTable",
+                "ec2:DeleteRouteTable",
+                "ec2:AttachInternetGateway",
+                "ec2:DetachInternetGateway",
+                "ec2:CreateSubnet",
+                "ec2:DeleteSubnet",
+                "ec2:CreateSecurityGroup",
+                "ec2:DeleteSecurityGroup",
+                "ec2:CreateNetworkAclEntry",
+                "ec2:DeleteNetworkAclEntry",
+                "iam:PutRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:GetRole",
+                "states:CreateStateMachine",
+                "states:DeleteStateMachine",
+                "logs:DescribeLogGroups",
+                "logs:DeleteLogGroup"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

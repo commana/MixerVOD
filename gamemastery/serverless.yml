@@ -1,0 +1,31 @@
+service: gamemastery
+
+provider:
+  name: aws
+  versionFunctions: false
+  region: eu-central-1
+
+functions:
+  mixer:
+    handler: aws.mixer.get
+    runtime: python2.7
+
+resources:
+  Resources:
+    GameRecordings:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: GameRecordings
+        AttributeDefinitions:
+          - AttributeName: "Channel"
+            AttributeType: "S"
+          - AttributeName: "Recording"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "Channel"
+            KeyType: "HASH"
+          - AttributeName: "Recording"
+            KeyType: "RANGE"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

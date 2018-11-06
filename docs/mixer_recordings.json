@@ -1,0 +1,926 @@
+[
+    {
+      "id": 62071443,
+      "name": "[XB1S] Tuesday Dinner",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 8,
+      "duration": 17888.8,
+      "expiresAt": "2018-11-07T00:12:49.000Z",
+      "createdAt": "2018-10-24T00:12:48.000Z",
+      "updatedAt": "2018-10-24T18:36:31.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.696664003358087,
+            "Bitrate": 1969835
+          },
+          "id": 209857065,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/96dadb01-c6fe-4db3-94f0-a5c7520932e5/",
+          "format": "hls",
+          "createdAt": "2018-10-24T00:18:50.000Z",
+          "updatedAt": "2018-10-24T00:18:50.000Z",
+          "recordingId": 62071443
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 209857077,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/96dadb01-c6fe-4db3-94f0-a5c7520932e5/",
+          "format": "thumbnail",
+          "createdAt": "2018-10-24T00:18:51.000Z",
+          "updatedAt": "2018-10-24T00:18:51.000Z",
+          "recordingId": 62071443
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.696664003358087,
+            "Bitrate": 1969835
+          },
+          "id": 209857080,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/96dadb01-c6fe-4db3-94f0-a5c7520932e5/",
+          "format": "raw",
+          "createdAt": "2018-10-24T00:18:51.000Z",
+          "updatedAt": "2018-10-24T00:18:51.000Z",
+          "recordingId": 62071443
+        },
+        {
+          "data": null,
+          "id": 209857092,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/96dadb01-c6fe-4db3-94f0-a5c7520932e5/",
+          "format": "chat",
+          "createdAt": "2018-10-24T00:18:52.000Z",
+          "updatedAt": "2018-10-24T00:18:52.000Z",
+          "recordingId": 62071443
+        }
+      ]
+    },
+    {
+      "id": 62220255,
+      "name": "00:47:30: My Very First Chicken Dinner ",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 9,
+      "duration": 17202.2,
+      "expiresAt": "2018-11-07T23:30:33.000Z",
+      "createdAt": "2018-10-24T23:30:32.000Z",
+      "updatedAt": "2018-10-25T00:10:16.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.708583199135646,
+            "Bitrate": 1757710
+          },
+          "id": 210393282,
+          "baseUrl": "https://vodcontent-2003.xboxlive.com/channel-47094669-public/c93c8a4a-d375-4744-9efd-a8774f7cdbc0/",
+          "format": "hls",
+          "createdAt": "2018-10-24T23:35:29.000Z",
+          "updatedAt": "2018-10-24T23:35:29.000Z",
+          "recordingId": 62220255
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 210393285,
+          "baseUrl": "https://vodcontent-2003.xboxlive.com/channel-47094669-public/c93c8a4a-d375-4744-9efd-a8774f7cdbc0/",
+          "format": "thumbnail",
+          "createdAt": "2018-10-24T23:35:30.000Z",
+          "updatedAt": "2018-10-24T23:35:30.000Z",
+          "recordingId": 62220255
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.708583199135646,
+            "Bitrate": 1757710
+          },
+          "id": 210393288,
+          "baseUrl": "https://vodcontent-2003.xboxlive.com/channel-47094669-public/c93c8a4a-d375-4744-9efd-a8774f7cdbc0/",
+          "format": "raw",
+          "createdAt": "2018-10-24T23:35:30.000Z",
+          "updatedAt": "2018-10-24T23:35:30.000Z",
+          "recordingId": 62220255
+        },
+        {
+          "data": null,
+          "id": 210393291,
+          "baseUrl": "https://vodcontent-2003.xboxlive.com/channel-47094669-public/c93c8a4a-d375-4744-9efd-a8774f7cdbc0/",
+          "format": "chat",
+          "createdAt": "2018-10-24T23:35:31.000Z",
+          "updatedAt": "2018-10-24T23:35:31.000Z",
+          "recordingId": 62220255
+        }
+      ]
+    },
+    {
+      "id": 62902290,
+      "name": "[XB1S] Cowboy Action",
+      "typeId": 267700,
+      "state": "AVAILABLE",
+      "viewsTotal": 0,
+      "duration": 5193.56,
+      "expiresAt": "2018-11-11T17:26:15.000Z",
+      "createdAt": "2018-10-28T17:26:15.000Z",
+      "updatedAt": "2018-10-28T17:29:47.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.773230606070058,
+            "Bitrate": 2480915
+          },
+          "id": 212836755,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/a5370424-a7cb-4aab-aefc-1c159c84503d/",
+          "format": "hls",
+          "createdAt": "2018-10-28T17:29:45.000Z",
+          "updatedAt": "2018-10-28T17:29:45.000Z",
+          "recordingId": 62902290
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 212836761,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/a5370424-a7cb-4aab-aefc-1c159c84503d/",
+          "format": "thumbnail",
+          "createdAt": "2018-10-28T17:29:46.000Z",
+          "updatedAt": "2018-10-28T17:29:46.000Z",
+          "recordingId": 62902290
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.773230606070058,
+            "Bitrate": 2480915
+          },
+          "id": 212836764,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/a5370424-a7cb-4aab-aefc-1c159c84503d/",
+          "format": "raw",
+          "createdAt": "2018-10-28T17:29:46.000Z",
+          "updatedAt": "2018-10-28T17:29:46.000Z",
+          "recordingId": 62902290
+        },
+        {
+          "data": null,
+          "id": 212836779,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/a5370424-a7cb-4aab-aefc-1c159c84503d/",
+          "format": "chat",
+          "createdAt": "2018-10-28T17:29:47.000Z",
+          "updatedAt": "2018-10-28T17:29:47.000Z",
+          "recordingId": 62902290
+        }
+      ]
+    },
+    {
+      "id": 62934162,
+      "name": "[XB1S] PUBG Action",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 0,
+      "duration": 7024.32,
+      "expiresAt": "2018-11-11T20:12:15.000Z",
+      "createdAt": "2018-10-28T20:12:15.000Z",
+      "updatedAt": "2018-10-28T20:15:54.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.67733797853058,
+            "Bitrate": 1642602
+          },
+          "id": 212949948,
+          "baseUrl": "https://vodcontent-3001.xboxlive.com/channel-47094669-public/52e1a935-5873-4ae5-957c-8768eac85d65/",
+          "format": "hls",
+          "createdAt": "2018-10-28T20:15:53.000Z",
+          "updatedAt": "2018-10-28T20:15:53.000Z",
+          "recordingId": 62934162
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 212949954,
+          "baseUrl": "https://vodcontent-3001.xboxlive.com/channel-47094669-public/52e1a935-5873-4ae5-957c-8768eac85d65/",
+          "format": "thumbnail",
+          "createdAt": "2018-10-28T20:15:53.000Z",
+          "updatedAt": "2018-10-28T20:15:53.000Z",
+          "recordingId": 62934162
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.67733797853058,
+            "Bitrate": 1642602
+          },
+          "id": 212949957,
+          "baseUrl": "https://vodcontent-3001.xboxlive.com/channel-47094669-public/52e1a935-5873-4ae5-957c-8768eac85d65/",
+          "format": "raw",
+          "createdAt": "2018-10-28T20:15:54.000Z",
+          "updatedAt": "2018-10-28T20:15:54.000Z",
+          "recordingId": 62934162
+        },
+        {
+          "data": null,
+          "id": 212949963,
+          "baseUrl": "https://vodcontent-3001.xboxlive.com/channel-47094669-public/52e1a935-5873-4ae5-957c-8768eac85d65/",
+          "format": "chat",
+          "createdAt": "2018-10-28T20:15:54.000Z",
+          "updatedAt": "2018-10-28T20:15:54.000Z",
+          "recordingId": 62934162
+        }
+      ]
+    },
+    {
+      "id": 63113664,
+      "name": "Duo Dinner @ 2h:22m",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 1,
+      "duration": 10214.9,
+      "expiresAt": "2018-11-12T22:42:03.000Z",
+      "createdAt": "2018-10-29T22:42:03.000Z",
+      "updatedAt": "2018-10-31T19:53:07.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.69573370894269,
+            "Bitrate": 1649104
+          },
+          "id": 213596460,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/f770269b-e63f-4681-8617-94b778da1773/",
+          "format": "hls",
+          "createdAt": "2018-10-29T22:45:59.000Z",
+          "updatedAt": "2018-10-29T22:45:59.000Z",
+          "recordingId": 63113664
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 213596466,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/f770269b-e63f-4681-8617-94b778da1773/",
+          "format": "thumbnail",
+          "createdAt": "2018-10-29T22:45:59.000Z",
+          "updatedAt": "2018-10-29T22:45:59.000Z",
+          "recordingId": 63113664
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.69573370894269,
+            "Bitrate": 1649104
+          },
+          "id": 213596472,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/f770269b-e63f-4681-8617-94b778da1773/",
+          "format": "raw",
+          "createdAt": "2018-10-29T22:46:00.000Z",
+          "updatedAt": "2018-10-29T22:46:00.000Z",
+          "recordingId": 63113664
+        },
+        {
+          "data": null,
+          "id": 213596475,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/f770269b-e63f-4681-8617-94b778da1773/",
+          "format": "chat",
+          "createdAt": "2018-10-29T22:46:00.000Z",
+          "updatedAt": "2018-10-29T22:46:00.000Z",
+          "recordingId": 63113664
+        }
+      ]
+    },
+    {
+      "id": 63272562,
+      "name": "[XB1S] Road to Chicken Dinner",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 2,
+      "duration": 10811.5,
+      "expiresAt": "2018-11-13T23:42:14.000Z",
+      "createdAt": "2018-10-30T23:42:14.000Z",
+      "updatedAt": "2018-10-31T19:55:09.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.683004341776556,
+            "Bitrate": 1865997
+          },
+          "id": 214167042,
+          "baseUrl": "https://vodcontent-2001.xboxlive.com/channel-47094669-public/8e665a7f-41c1-4457-87e2-38febd430568/",
+          "format": "hls",
+          "createdAt": "2018-10-30T23:46:50.000Z",
+          "updatedAt": "2018-10-30T23:46:50.000Z",
+          "recordingId": 63272562
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 214167045,
+          "baseUrl": "https://vodcontent-2001.xboxlive.com/channel-47094669-public/8e665a7f-41c1-4457-87e2-38febd430568/",
+          "format": "thumbnail",
+          "createdAt": "2018-10-30T23:46:50.000Z",
+          "updatedAt": "2018-10-30T23:46:50.000Z",
+          "recordingId": 63272562
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.683004341776556,
+            "Bitrate": 1865997
+          },
+          "id": 214167048,
+          "baseUrl": "https://vodcontent-2001.xboxlive.com/channel-47094669-public/8e665a7f-41c1-4457-87e2-38febd430568/",
+          "format": "raw",
+          "createdAt": "2018-10-30T23:46:51.000Z",
+          "updatedAt": "2018-10-30T23:46:51.000Z",
+          "recordingId": 63272562
+        },
+        {
+          "data": null,
+          "id": 214167051,
+          "baseUrl": "https://vodcontent-2001.xboxlive.com/channel-47094669-public/8e665a7f-41c1-4457-87e2-38febd430568/",
+          "format": "chat",
+          "createdAt": "2018-10-30T23:46:51.000Z",
+          "updatedAt": "2018-10-30T23:46:51.000Z",
+          "recordingId": 63272562
+        }
+      ]
+    },
+    {
+      "id": 63414303,
+      "name": "[XB1S] Dinner Hunt",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 2,
+      "duration": 11832.7,
+      "expiresAt": "2018-11-14T23:27:25.000Z",
+      "createdAt": "2018-10-31T23:27:25.000Z",
+      "updatedAt": "2018-11-01T19:55:02.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.691752895587136,
+            "Bitrate": 1674702
+          },
+          "id": 214676790,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/f19332d4-0a6f-489f-9a69-f09e6339dc33/",
+          "format": "hls",
+          "createdAt": "2018-10-31T23:31:25.000Z",
+          "updatedAt": "2018-10-31T23:31:25.000Z",
+          "recordingId": 63414303
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 214676793,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/f19332d4-0a6f-489f-9a69-f09e6339dc33/",
+          "format": "thumbnail",
+          "createdAt": "2018-10-31T23:31:25.000Z",
+          "updatedAt": "2018-10-31T23:31:25.000Z",
+          "recordingId": 63414303
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.691752895587136,
+            "Bitrate": 1674702
+          },
+          "id": 214676796,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/f19332d4-0a6f-489f-9a69-f09e6339dc33/",
+          "format": "raw",
+          "createdAt": "2018-10-31T23:31:26.000Z",
+          "updatedAt": "2018-10-31T23:31:26.000Z",
+          "recordingId": 63414303
+        },
+        {
+          "data": null,
+          "id": 214676799,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/f19332d4-0a6f-489f-9a69-f09e6339dc33/",
+          "format": "chat",
+          "createdAt": "2018-10-31T23:31:26.000Z",
+          "updatedAt": "2018-10-31T23:31:26.000Z",
+          "recordingId": 63414303
+        }
+      ]
+    },
+    {
+      "id": 63558549,
+      "name": "[XB1S] Dinner Hunt",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 0,
+      "duration": 12846.5,
+      "expiresAt": "2018-11-15T23:29:18.000Z",
+      "createdAt": "2018-11-01T23:29:17.000Z",
+      "updatedAt": "2018-11-01T23:34:00.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.724068688816793,
+            "Bitrate": 1891904
+          },
+          "id": 215192718,
+          "baseUrl": "https://vodcontent-3003.xboxlive.com/channel-47094669-public/a72fd693-cd01-4a6f-a0d6-bd1ec5562183/",
+          "format": "hls",
+          "createdAt": "2018-11-01T23:33:58.000Z",
+          "updatedAt": "2018-11-01T23:33:58.000Z",
+          "recordingId": 63558549
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 215192721,
+          "baseUrl": "https://vodcontent-3003.xboxlive.com/channel-47094669-public/a72fd693-cd01-4a6f-a0d6-bd1ec5562183/",
+          "format": "thumbnail",
+          "createdAt": "2018-11-01T23:33:58.000Z",
+          "updatedAt": "2018-11-01T23:33:58.000Z",
+          "recordingId": 63558549
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.724068688816793,
+            "Bitrate": 1891904
+          },
+          "id": 215192736,
+          "baseUrl": "https://vodcontent-3003.xboxlive.com/channel-47094669-public/a72fd693-cd01-4a6f-a0d6-bd1ec5562183/",
+          "format": "raw",
+          "createdAt": "2018-11-01T23:33:59.000Z",
+          "updatedAt": "2018-11-01T23:33:59.000Z",
+          "recordingId": 63558549
+        },
+        {
+          "data": null,
+          "id": 215192739,
+          "baseUrl": "https://vodcontent-3003.xboxlive.com/channel-47094669-public/a72fd693-cd01-4a6f-a0d6-bd1ec5562183/",
+          "format": "chat",
+          "createdAt": "2018-11-01T23:33:59.000Z",
+          "updatedAt": "2018-11-01T23:33:59.000Z",
+          "recordingId": 63558549
+        }
+      ]
+    },
+    {
+      "id": 63732048,
+      "name": "[XB1S] Dinner Hunt",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 2,
+      "duration": 6916.2,
+      "expiresAt": "2018-11-16T23:56:47.000Z",
+      "createdAt": "2018-11-02T23:56:47.000Z",
+      "updatedAt": "2018-11-04T15:15:00.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.663267255111442,
+            "Bitrate": 1819701
+          },
+          "id": 215810814,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/b4417fa6-55da-4155-a7ab-6c696a0c442f/",
+          "format": "hls",
+          "createdAt": "2018-11-03T00:00:38.000Z",
+          "updatedAt": "2018-11-03T00:00:38.000Z",
+          "recordingId": 63732048
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 215810820,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/b4417fa6-55da-4155-a7ab-6c696a0c442f/",
+          "format": "thumbnail",
+          "createdAt": "2018-11-03T00:00:38.000Z",
+          "updatedAt": "2018-11-03T00:00:38.000Z",
+          "recordingId": 63732048
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.663267255111442,
+            "Bitrate": 1819701
+          },
+          "id": 215810832,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/b4417fa6-55da-4155-a7ab-6c696a0c442f/",
+          "format": "raw",
+          "createdAt": "2018-11-03T00:00:39.000Z",
+          "updatedAt": "2018-11-03T00:00:39.000Z",
+          "recordingId": 63732048
+        },
+        {
+          "data": null,
+          "id": 215810835,
+          "baseUrl": "https://vodcontent-3002.xboxlive.com/channel-47094669-public/b4417fa6-55da-4155-a7ab-6c696a0c442f/",
+          "format": "chat",
+          "createdAt": "2018-11-03T00:00:39.000Z",
+          "updatedAt": "2018-11-03T00:00:39.000Z",
+          "recordingId": 63732048
+        }
+      ]
+    },
+    {
+      "id": 63866850,
+      "name": "[XB1S] Long Gaming Saturday",
+      "typeId": 267700,
+      "state": "AVAILABLE",
+      "viewsTotal": 0,
+      "duration": 11403.3,
+      "expiresAt": "2018-11-17T16:46:39.000Z",
+      "createdAt": "2018-11-03T16:46:38.000Z",
+      "updatedAt": "2018-11-03T16:51:36.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.771650271702097,
+            "Bitrate": 2212537
+          },
+          "id": 216295098,
+          "baseUrl": "https://vodcontent-2004.xboxlive.com/channel-47094669-public/e28ffbf3-55dd-420e-a1b7-291349dfb38d/",
+          "format": "hls",
+          "createdAt": "2018-11-03T16:51:35.000Z",
+          "updatedAt": "2018-11-03T16:51:35.000Z",
+          "recordingId": 63866850
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 216295101,
+          "baseUrl": "https://vodcontent-2004.xboxlive.com/channel-47094669-public/e28ffbf3-55dd-420e-a1b7-291349dfb38d/",
+          "format": "thumbnail",
+          "createdAt": "2018-11-03T16:51:35.000Z",
+          "updatedAt": "2018-11-03T16:51:35.000Z",
+          "recordingId": 63866850
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.771650271702097,
+            "Bitrate": 2212537
+          },
+          "id": 216295107,
+          "baseUrl": "https://vodcontent-2004.xboxlive.com/channel-47094669-public/e28ffbf3-55dd-420e-a1b7-291349dfb38d/",
+          "format": "raw",
+          "createdAt": "2018-11-03T16:51:36.000Z",
+          "updatedAt": "2018-11-03T16:51:36.000Z",
+          "recordingId": 63866850
+        },
+        {
+          "data": null,
+          "id": 216295113,
+          "baseUrl": "https://vodcontent-2004.xboxlive.com/channel-47094669-public/e28ffbf3-55dd-420e-a1b7-291349dfb38d/",
+          "format": "chat",
+          "createdAt": "2018-11-03T16:51:36.000Z",
+          "updatedAt": "2018-11-03T16:51:36.000Z",
+          "recordingId": 63866850
+        }
+      ]
+    },
+    {
+      "id": 63886590,
+      "name": "[XB1S] Long Gaming Saturday",
+      "typeId": 267700,
+      "state": "AVAILABLE",
+      "viewsTotal": 5,
+      "duration": 4772.91,
+      "expiresAt": "2018-11-17T18:32:48.000Z",
+      "createdAt": "2018-11-03T18:32:48.000Z",
+      "updatedAt": "2018-11-03T18:49:20.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.430497897926337,
+            "Bitrate": 1741589
+          },
+          "id": 216362997,
+          "baseUrl": "https://vodcontent-2004.xboxlive.com/channel-47094669-public/87652434-6ea4-44dc-8200-b99a0f4d9ef1/",
+          "format": "hls",
+          "createdAt": "2018-11-03T18:35:51.000Z",
+          "updatedAt": "2018-11-03T18:35:51.000Z",
+          "recordingId": 63886590
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 216363009,
+          "baseUrl": "https://vodcontent-2004.xboxlive.com/channel-47094669-public/87652434-6ea4-44dc-8200-b99a0f4d9ef1/",
+          "format": "thumbnail",
+          "createdAt": "2018-11-03T18:35:52.000Z",
+          "updatedAt": "2018-11-03T18:35:52.000Z",
+          "recordingId": 63886590
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.430497897926337,
+            "Bitrate": 1741589
+          },
+          "id": 216363012,
+          "baseUrl": "https://vodcontent-2004.xboxlive.com/channel-47094669-public/87652434-6ea4-44dc-8200-b99a0f4d9ef1/",
+          "format": "raw",
+          "createdAt": "2018-11-03T18:35:52.000Z",
+          "updatedAt": "2018-11-03T18:35:52.000Z",
+          "recordingId": 63886590
+        },
+        {
+          "data": null,
+          "id": 216363021,
+          "baseUrl": "https://vodcontent-2004.xboxlive.com/channel-47094669-public/87652434-6ea4-44dc-8200-b99a0f4d9ef1/",
+          "format": "chat",
+          "createdAt": "2018-11-03T18:35:53.000Z",
+          "updatedAt": "2018-11-03T18:35:53.000Z",
+          "recordingId": 63886590
+        }
+      ]
+    },
+    {
+      "id": 64062660,
+      "name": "[XB1S] Long Gaming Saturday",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 2,
+      "duration": 1813.85,
+      "expiresAt": "2018-11-18T12:50:12.000Z",
+      "createdAt": "2018-11-04T12:50:11.000Z",
+      "updatedAt": "2018-11-04T14:52:17.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.704285810371996,
+            "Bitrate": 1684177
+          },
+          "id": 216992652,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/d1e131ab-b0fd-4ba6-aeb5-1b6b928b8327/",
+          "format": "hls",
+          "createdAt": "2018-11-04T12:52:37.000Z",
+          "updatedAt": "2018-11-04T12:52:37.000Z",
+          "recordingId": 64062660
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 216992658,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/d1e131ab-b0fd-4ba6-aeb5-1b6b928b8327/",
+          "format": "thumbnail",
+          "createdAt": "2018-11-04T12:52:37.000Z",
+          "updatedAt": "2018-11-04T12:52:37.000Z",
+          "recordingId": 64062660
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.704285810371996,
+            "Bitrate": 1684177
+          },
+          "id": 216992664,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/d1e131ab-b0fd-4ba6-aeb5-1b6b928b8327/",
+          "format": "raw",
+          "createdAt": "2018-11-04T12:52:38.000Z",
+          "updatedAt": "2018-11-04T12:52:38.000Z",
+          "recordingId": 64062660
+        },
+        {
+          "data": null,
+          "id": 216992679,
+          "baseUrl": "https://vodcontent-3004.xboxlive.com/channel-47094669-public/d1e131ab-b0fd-4ba6-aeb5-1b6b928b8327/",
+          "format": "chat",
+          "createdAt": "2018-11-04T12:52:38.000Z",
+          "updatedAt": "2018-11-04T12:52:38.000Z",
+          "recordingId": 64062660
+        }
+      ]
+    },
+    {
+      "id": 64101525,
+      "name": "[XB1S] Sunday Fire",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 0,
+      "duration": 9678.51,
+      "expiresAt": "2018-11-18T17:33:30.000Z",
+      "createdAt": "2018-11-04T17:33:30.000Z",
+      "updatedAt": "2018-11-04T17:37:15.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.699615922245876,
+            "Bitrate": 1680713
+          },
+          "id": 217128411,
+          "baseUrl": "https://vodcontent-2001.xboxlive.com/channel-47094669-public/466b26eb-51c6-4e4d-aa06-c3e3b7699152/",
+          "format": "hls",
+          "createdAt": "2018-11-04T17:37:13.000Z",
+          "updatedAt": "2018-11-04T17:37:13.000Z",
+          "recordingId": 64101525
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 217128417,
+          "baseUrl": "https://vodcontent-2001.xboxlive.com/channel-47094669-public/466b26eb-51c6-4e4d-aa06-c3e3b7699152/",
+          "format": "thumbnail",
+          "createdAt": "2018-11-04T17:37:14.000Z",
+          "updatedAt": "2018-11-04T17:37:14.000Z",
+          "recordingId": 64101525
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.699615922245876,
+            "Bitrate": 1680713
+          },
+          "id": 217128420,
+          "baseUrl": "https://vodcontent-2001.xboxlive.com/channel-47094669-public/466b26eb-51c6-4e4d-aa06-c3e3b7699152/",
+          "format": "raw",
+          "createdAt": "2018-11-04T17:37:14.000Z",
+          "updatedAt": "2018-11-04T17:37:14.000Z",
+          "recordingId": 64101525
+        },
+        {
+          "data": null,
+          "id": 217128423,
+          "baseUrl": "https://vodcontent-2001.xboxlive.com/channel-47094669-public/466b26eb-51c6-4e4d-aa06-c3e3b7699152/",
+          "format": "chat",
+          "createdAt": "2018-11-04T17:37:15.000Z",
+          "updatedAt": "2018-11-04T17:37:15.000Z",
+          "recordingId": 64101525
+        }
+      ]
+    },
+    {
+      "id": 64131444,
+      "name": "[XB1S] Sunday Fire",
+      "typeId": 267073,
+      "state": "AVAILABLE",
+      "viewsTotal": 0,
+      "duration": 4905.86,
+      "expiresAt": "2018-11-18T18:59:00.000Z",
+      "createdAt": "2018-11-04T18:59:00.000Z",
+      "updatedAt": "2018-11-04T19:02:26.000Z",
+      "channelId": 47094669,
+      "vods": [
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.805968898846135,
+            "Bitrate": 3080660
+          },
+          "id": 217227174,
+          "baseUrl": "https://vodcontent-2005.xboxlive.com/channel-47094669-public/c2ee11a7-8045-4fb5-8338-b7a32a0ad19b/",
+          "format": "hls",
+          "createdAt": "2018-11-04T19:02:25.000Z",
+          "updatedAt": "2018-11-04T19:02:25.000Z",
+          "recordingId": 64131444
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": true
+          },
+          "id": 217227183,
+          "baseUrl": "https://vodcontent-2005.xboxlive.com/channel-47094669-public/c2ee11a7-8045-4fb5-8338-b7a32a0ad19b/",
+          "format": "thumbnail",
+          "createdAt": "2018-11-04T19:02:25.000Z",
+          "updatedAt": "2018-11-04T19:02:25.000Z",
+          "recordingId": 64131444
+        },
+        {
+          "data": {
+            "Width": 1920,
+            "Height": 1080,
+            "Has720pPreview": false,
+            "Fps": 29.805968898846135,
+            "Bitrate": 3080660
+          },
+          "id": 217227204,
+          "baseUrl": "https://vodcontent-2005.xboxlive.com/channel-47094669-public/c2ee11a7-8045-4fb5-8338-b7a32a0ad19b/",
+          "format": "raw",
+          "createdAt": "2018-11-04T19:02:26.000Z",
+          "updatedAt": "2018-11-04T19:02:26.000Z",
+          "recordingId": 64131444
+        },
+        {
+          "data": null,
+          "id": 217227207,
+          "baseUrl": "https://vodcontent-2005.xboxlive.com/channel-47094669-public/c2ee11a7-8045-4fb5-8338-b7a32a0ad19b/",
+          "format": "chat",
+          "createdAt": "2018-11-04T19:02:26.000Z",
+          "updatedAt": "2018-11-04T19:02:26.000Z",
+          "recordingId": 64131444
+        }
+      ]
+    }
+  ]
