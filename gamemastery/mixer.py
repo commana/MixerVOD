@@ -1,3 +1,7 @@
+"""
+Entry point for AWS lambda function
+"""
+
 import analyzer.mixer.recordings as gmr 
 import analyzer.preparation.bouncer as gb
 import analyzer.aws.aws_store as gaa
@@ -5,6 +9,7 @@ import boto3
 import os
 
 def get(event, context):
+    """Download recording info from Mixer.com API and initiate analysis"""
 
     IS_OFFLINE = os.environ.get('IS_OFFLINE')
     mixer_client_id = os.environ['MIXER_API_CLIENT_ID']
