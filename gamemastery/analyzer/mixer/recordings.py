@@ -28,10 +28,10 @@ def get_recordings(mixer_client_id, mixer_channel_id):
 
         # We further assume that the first VOD entry has all information plus it represents the mp4 version!
         data = rec["vods"][0]["data"]
-        width = data["width"]
-        height = data["height"]
-        fps = data["fps"]
-        bitrate = data["bitrate"]
+        width = data["Width"]
+        height = data["Height"]
+        fps = data["Fps"]
+        bitrate = data["Bitrate"]
 
         recording_infos.append(gr.Recording({
             "platform": "mixer",

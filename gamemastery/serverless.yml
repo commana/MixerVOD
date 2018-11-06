@@ -7,8 +7,16 @@ provider:
 
 functions:
   mixer:
-    handler: aws.mixer.get
+    handler: mixer.get
     runtime: python2.7
+
+plugins:
+  - serverless-dynamodb-local
+
+custom:
+  dynamodb:
+    start:
+      migrate: true
 
 resources:
   Resources:
@@ -20,7 +28,7 @@ resources:
           - AttributeName: "Channel"
             AttributeType: "S"
           - AttributeName: "Recording"
-            AttributeType: "S"
+            AttributeType: "N"
         KeySchema:
           - AttributeName: "Channel"
             KeyType: "HASH"
