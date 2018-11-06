@@ -1,7 +1,7 @@
 """
 Implements the store interface for AWS DynamoDB
 """
-import gamemastery.store as gs
+import analyzer.preparation.store as gs
 
 class AWSStore(gs.Store):
 
