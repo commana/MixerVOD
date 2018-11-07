@@ -37,3 +37,21 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+    RecordingDeadLetterQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: "RecordingDeadLetterQueue"
+    RecordingDownloadQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: "RecordingDownloadQueue"
+        VisibilityTimeout: 14400
+        RedrivePolicy:
+          deadLetterTargetArn: ${self:resources.Outputs.RecordingDeadLetterQueue.Value}
+          maxReceiveCount: 4
+
+  Outputs:
+    RecordingDeadLetterQueue:
+      Description: "The ARN of the dead letter queue"
+      Value:
+        "Fn::GetAtt": [ RecordingDeadLetterQueue, Arn ]
