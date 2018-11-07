@@ -1,15 +1,16 @@
 """
 Implements the store interface for AWS DynamoDB
 """
-import analyzer.preparation.store as gs
 
-class AWSStore(gs.Store):
+class Store(object):
+    """Defines the use cases implemented by the underlying storage engine"""
 
     def __init__(self, dynamodb, recording_table_name):
         self.db = dynamodb
         self.recording_table_name = recording_table_name
 
     def filter_known(self, recordings):
+        """Returns only those recordings that are not yet listed in the storage table"""
         ids = []
         for rec in recordings:
             ids.append({

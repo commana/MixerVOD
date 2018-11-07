@@ -4,7 +4,8 @@ Entry point for AWS lambda function
 
 import analyzer.mixer.recordings as gmr 
 import analyzer.preparation.bouncer as gb
-import analyzer.aws.aws_store as gaa
+import analyzer.aws.store as AWSStore
+import analyzer.aws.queue as AWSQueue
 import boto3
 import os
 
@@ -26,5 +27,5 @@ def handler(event, context):
     sqs = boto3.resource('sqs')
 
     recordings = gmr.get_recordings(gma_mixer_client_id, gma_mixer_channel_id)
-    b = gb.Bouncer(gaa.AWSStore(db, gma_aws_db_table_name), sqs.get_queue_by_name(QueueName=gma_aws_download_queue_name))
+    b = gb.Bouncer(AWSStore.Store(db, gma_aws_db_table_name), AWSQueue.Queue(sqs.get_queue_by_name(QueueName=gma_aws_download_queue_name)))
     b.check(recordings)
