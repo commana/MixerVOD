@@ -1,0 +1,19 @@
+HTTP/1.1 206 Partial Content
+Content-Type: application/octet-stream
+Server: Windows-Azure-Blob/1.0 Microsoft-HTTPAPI/2.0
+x-ms-request-id: f38090fd-e01e-0154-0f2a-764131000000
+x-ms-version: 2009-09-19
+x-ms-lease-status: unlocked
+x-ms-blob-type: BlockBlob
+Last-Modified: Wed, 24 Oct 2018 23:35:28 GMT
+ETag: 0x8D63A0961BCC576
+Date: Tue, 06 Nov 2018 23:46:57 GMT
+Content-Range: bytes 0-1023/4056545747
+Content-Length: 1024
+Connection: keep-alive
+Access-Control-Expose-Headers: Cache-Control,Content-Length,Content-Type,Accept-Ranges,Range,Content-Range,ETag
+Access-Control-Allow-Headers: Origin,X-Requested-With,Accept,Range,Content-Range
+Access-Control-Allow-Methods: GET,POST,HEAD
+Access-Control-Allow-Origin: *
+
+<the 1024 bytes>
