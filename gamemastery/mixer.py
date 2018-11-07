@@ -8,7 +8,7 @@ import analyzer.aws.aws_store as gaa
 import boto3
 import os
 
-def get(event, context):
+def handler(event, context):
     """Download recording info from Mixer.com API and initiate analysis"""
 
     IS_OFFLINE = os.environ.get('IS_OFFLINE')

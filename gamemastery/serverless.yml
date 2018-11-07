@@ -7,7 +7,7 @@ provider:
 
 functions:
   mixer:
-    handler: mixer.get
+    handler: mixer.handler
     runtime: python2.7
 
 plugins:
