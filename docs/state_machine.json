@@ -1,0 +1,43 @@
+{
+    "StartAt": "GetUploadSize",
+    "States": {
+      "GetUploadSize": {
+        "Type": "Pass",
+        "Result": "Hello World!",
+        "Next": "InitiateMultipartUpload",
+        "Comment": "We determine the file size of the download from Mixer.com in order to multipart upload the file to S3"
+      },
+      "InitiateMultipartUpload": {
+        "Type": "Pass",
+        "Next": "IsUploadFinished"
+      },
+      "IsUploadFinished": {
+        "Type": "Choice",
+        "Default": "CompleteMultipartUpload",
+        "Choices": [{"Variable": "$.value", "NumericEquals": 1337, "Next": "UploadLoop"}]
+      },
+      "UploadLoop": {
+        "Type": "Parallel",
+        "Next": "UploadLoopEnd",
+        "Branches": [{
+          "StartAt": "First",
+          "States": {
+            "First": { "Type": "Pass", "End": true }
+          }
+        }, {
+          "StartAt": "Second",
+          "States": {
+            "Second": { "Type": "Pass", "End": true }
+          }
+        }]
+      },
+      "UploadLoopEnd": {
+        "Type": "Pass",
+        "Next": "IsUploadFinished"
+      },
+      "CompleteMultipartUpload": {
+        "Type": "Pass",
+        "End": true
+      }
+    }
+  }
