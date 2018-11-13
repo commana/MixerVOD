@@ -10,8 +10,22 @@ functions:
     handler: mixer.handler
     runtime: python2.7
 
+stepFunctions:
+  stateMachines:
+    MixerDownload:
+      name: MixerDownloadStateMachine
+      definition:
+        StartAt: GetDownloadSize
+        States:
+          GetDownloadSize:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-mixer
+            End: true
+
 plugins:
   - serverless-dynamodb-local
+  - serverless-step-functions
+  - serverless-pseudo-parameters
 
 custom:
   dynamodb:
