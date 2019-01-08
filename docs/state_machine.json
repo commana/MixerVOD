@@ -1,43 +1,105 @@
 {
-    "StartAt": "GetUploadSize",
-    "States": {
-      "GetUploadSize": {
-        "Type": "Pass",
-        "Result": "Hello World!",
-        "Next": "InitiateMultipartUpload",
-        "Comment": "We determine the file size of the download from Mixer.com in order to multipart upload the file to S3"
-      },
-      "InitiateMultipartUpload": {
-        "Type": "Pass",
-        "Next": "IsUploadFinished"
-      },
-      "IsUploadFinished": {
-        "Type": "Choice",
-        "Default": "CompleteMultipartUpload",
-        "Choices": [{"Variable": "$.value", "NumericEquals": 1337, "Next": "UploadLoop"}]
-      },
-      "UploadLoop": {
-        "Type": "Parallel",
-        "Next": "UploadLoopEnd",
-        "Branches": [{
-          "StartAt": "First",
-          "States": {
-            "First": { "Type": "Pass", "End": true }
+  "StartAt": "GetRecordingSize",
+  "States": {
+    "GetRecordingSize": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:get_recording_size",
+      "Next": "CheckMaximumFileSize",
+      "Comment": "We determine the file size of the download from Mixer.com in order to multi-part upload the file to S3"
+    },
+    "CheckMaximumFileSize": {
+      "Type": "Choice",
+      "Default": "EndWithFailure",
+      "Choices": [{"Variable": "$.size", "NumericLessThanEquals": 8589934592, "Next": "InitiateMultipartUpload"}],
+      "Comment": "The maximum file size we support is currently 8GB"
+    },
+    "InitiateMultipartUpload": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:initiate_multipart_upload",
+      "Next": "IsUploadFinished"
+    },
+    "IsUploadFinished": {
+      "Type": "Choice",
+      "Default": "CompleteMultipartUpload",
+      "Choices": [{"Variable": "$.is_completed", "BooleanEquals": false, "Next": "UploadLoop"}]
+    },
+    "UploadLoop": {
+      "Type": "Parallel",
+      "Comment": "Upload parts in parallel. Every part has a size of 500MB, which is a bit below the official lambda limit of 512MB for the /tmp folder.",
+      "Next": "MergePartialUploads",
+      "Branches": [{
+        "StartAt": "First",
+        "States": {
+          "First": {
+            "Type": "Task",
+            "Parameters": {
+              "number": 1,
+              "url.$": "$.url",
+              "id.$": "$.id",
+              "part_base_no.$": "$.part_base_no",
+              "upload_id.$": "$.upload_id",
+              "size.$": "$.size",
+              "is_completed.$": "$.is_completed",
+              "completed_parts.$": "$.completed_parts"
+            },
+            "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:upload_part",
+            "End": true
           }
-        }, {
-          "StartAt": "Second",
-          "States": {
-            "Second": { "Type": "Pass", "End": true }
+        }
+      }, {
+        "StartAt": "Second",
+        "States": {
+          "Second": {
+            "Type": "Task",
+            "Parameters": {
+              "number": 2,
+              "url.$": "$.url",
+              "id.$": "$.id",
+              "part_base_no.$": "$.part_base_no",
+              "upload_id.$": "$.upload_id",
+              "size.$": "$.size",
+              "is_completed.$": "$.is_completed",
+              "completed_parts.$": "$.completed_parts"
+            },
+            "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:upload_part",
+            "End": true
           }
-        }]
-      },
-      "UploadLoopEnd": {
-        "Type": "Pass",
-        "Next": "IsUploadFinished"
-      },
-      "CompleteMultipartUpload": {
-        "Type": "Pass",
-        "End": true
-      }
+        }
+      }, {
+        "StartAt": "Third",
+        "States": {
+          "Third": {
+            "Type": "Task",
+            "Parameters": {
+              "number": 3,
+              "url.$": "$.url",
+              "id.$": "$.id",
+              "part_base_no.$": "$.part_base_no",
+              "upload_id.$": "$.upload_id",
+              "size.$": "$.size",
+              "is_completed.$": "$.is_completed",
+              "completed_parts.$": "$.completed_parts"
+            },
+            "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:upload_part",
+            "End": true
+          }
+        }
+      }]
+    },
+    "MergePartialUploads": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:merge_partial_uploads",
+      "Next": "IsUploadFinished"
+    },
+    "CompleteMultipartUpload": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:complete_upload",
+      "End": true
+    },
+    "EndWithFailure": {
+      "Type": "Pass",
+      "End": true,
+      "Comment": "End state if an error occurred."
     }
   }
+}
