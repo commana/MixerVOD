@@ -9,6 +9,6 @@ class Bouncer(object):
         self.store = store
         self.queue = queue
 
-    def check(self, recordings):
+    def register(self, recordings):
         new_recordings = self.store.filter_known(recordings)
         self.queue.enqueue(new_recordings)

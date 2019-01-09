@@ -2,6 +2,7 @@
 node_modules
 .dynamodb
 package-lock.json
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

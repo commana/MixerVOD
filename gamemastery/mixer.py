@@ -28,4 +28,4 @@ def handler(event, context):
 
     recordings = gmr.get_recordings(gma_mixer_client_id, gma_mixer_channel_id)
     b = gb.Bouncer(AWSStore.Store(db, gma_aws_db_table_name), AWSQueue.Queue(sqs.get_queue_by_name(QueueName=gma_aws_download_queue_name)))
-    b.check(recordings)
+    b.register(recordings)

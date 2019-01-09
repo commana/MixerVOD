@@ -84,6 +84,10 @@
             "End": true
           }
         }
+      }],
+      "Catch": [{
+        "ErrorEquals": ["States.ALL"],
+        "Next": "AbortMultipartUpload"
       }]
     },
     "MergePartialUploads": {
@@ -95,6 +99,11 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:complete_upload",
       "End": true
+    },
+    "AbortMultipartUpload": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:abort_upload",
+      "Next": "EndWithFailure"
     },
     "EndWithFailure": {
       "Type": "Pass",

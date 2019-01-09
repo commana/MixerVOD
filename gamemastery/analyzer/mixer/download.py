@@ -1,15 +1,10 @@
-import StringIO
 import requests
 import boto3
-import json
 import os
 import io
 
-max_size_in_gb = 4 * 1024 * 1024 * 1024
 RANGE_SIZE = 500 * 1024 * 1024 # KEEP IN SYNC WITH STEP FUNCTION
 GMA_AWS_BUCKET_NAME = os.environ['GMA_AWS_BUCKET_NAME']
-s3r = boto3.resource('s3')
-bucket = s3r.Bucket(GMA_AWS_BUCKET_NAME)
 s3 = boto3.client('s3')
 
 # See https://stackoverflow.com/a/26853961
@@ -17,10 +12,6 @@ def merge_two_dicts(x, y):
     z = x.copy()   # start with x's keys and values
     z.update(y)    # modifies z with y's keys and values & returns None
     return z
-
-event = {}
-event['id'] = "DEADBEEF"
-event['url'] = "https://vodcontent-2008.xboxlive.com/channel-47094669-public/918ff7e8-13af-43ba-9f92-88574919408c/source.mp4"
 
 def get_recording_size(event, context):
     """
@@ -99,17 +90,14 @@ def complete_upload(event, context):
     }
     s3.complete_multipart_upload(Bucket=GMA_AWS_BUCKET_NAME, Key=event['id'], UploadId=event['upload_id'], MultipartUpload=part_info)
     del event['completed_parts']
+    del event['is_completed']
     return event
 
 def abort_upload(event, context):
-    mpu = s3.MultipartUpload(GMA_AWS_BUCKET_NAME, generate_name(event), event['id'])
-    response = mpu.abort()
-    return json.dumps({
-        "recording": event.recording,
-        "size": event.size,
-        "upload_id": mpu.upload_id,
-        "abort_response": response
-    })
+    s3.abort_multipart_upload(Bucket=GMA_AWS_BUCKET_NAME, Key=event['id'], UploadId=event['upload_id'])
+    del event['upload_id']
+    del event['part_base_no']
+    return event
 
 def finalize_recording(event, context):
     """
@@ -119,11 +107,11 @@ def finalize_recording(event, context):
     # Store recording in SQS
     pass
 
-def generate_name(event):
-    return "mixer_{}.mp4".format(event['id'])
+max_size_in_gb = 4 * 1024 * 1024 * 1024
 
-
-
+event = {}
+event['id'] = "DEADBEEF"
+event['url'] = "https://vodcontent-2008.xboxlive.com/channel-47094669-public/918ff7e8-13af-43ba-9f92-88574919408c/source.mp4"
 
 event2 = get_recording_size(event, None)
 if int(event2['size']) > max_size_in_gb:

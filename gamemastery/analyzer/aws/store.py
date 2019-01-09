@@ -2,6 +2,8 @@
 Implements the store interface for AWS DynamoDB
 """
 
+import analyzer.preparation.recording as rec
+
 class Store(object):
     """Defines the use cases implemented by the underlying storage engine"""
 
@@ -22,8 +24,7 @@ class Store(object):
         rqs = {}
         rqs[self.recording_table_name] = {'Keys': ids}
         response = self.db.batch_get_item(RequestItems=rqs)
-        print response
-        #seen_vods = map(lambda x: x['date'], response['Responses'][self.recording_table_name])
-        #process_vods = [x for x in recordings if not str(x['id']) in seen_vods]
-        #return process_vods
-        return []
+        seen_recordings = map(lambda x: rec.Recording(x), response['Responses'][self.recording_table_name])
+        # TODO: Implement equals methods for Recording class
+        new_recordings = [x for x in recordings if not x in seen_recordings]
+        return new_recordings
