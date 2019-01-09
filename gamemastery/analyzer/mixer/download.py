@@ -48,7 +48,7 @@ def upload_part(event, context):
     # Compute parameters
     part_no = event['number'] + event['part_base_no']
     range_start = (part_no - 1) * RANGE_SIZE
-    range_end = range_start + RANGE_SIZE
+    range_end = range_start + RANGE_SIZE - 1
 
     part_file = "/tmp/{}_{}_{}.mp4".format(event['id'], event['upload_id'], part_no)
     headers = {"Range": "bytes={:d}-{:d}".format(range_start, range_end)}
