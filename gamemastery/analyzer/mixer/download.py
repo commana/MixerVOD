@@ -125,12 +125,12 @@ def generate_name(event):
 
 
 
-event2 = json.loads(get_recording_size(event, None))
+event2 = get_recording_size(event, None)
 if int(event2['size']) > max_size_in_gb:
     raise Exception("VOD has {} bytes, a maximum of {} is allowed".format(event2['size'], max_size_in_gb))
-event3 = json.loads(initiate_multipart_upload(event2, None))
-event3['part_no'] = 1
-event3['range_start'] = 0
-event3['range_end'] = 5 * 1024 * 1024
-event4 = json.loads(upload_part(event3, None))
-print event4
+event3 = initiate_multipart_upload(event2, None)
+while event3['is_completed'] == False:
+    event3['number'] = 1
+    eventX = upload_part(event3, None)
+    event3 = merge_partial_uploads([eventX], None)
+event4 = complete_upload(event3, None)
