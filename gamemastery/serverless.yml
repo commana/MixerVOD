@@ -7,15 +7,24 @@ provider:
   runtime: python2.7
   environment:
     GMA_AWS_DB_TABLE_NAME: ${env:GMA_AWS_DB_TABLE_NAME}
-    GMA_AWS_DOWNLOAD_QUEUE_NAME: ${env:GMA_AWS_DOWNLOAD_QUEUE_NAME
+    GMA_AWS_DOWNLOAD_QUEUE_NAME: ${env:GMA_AWS_DOWNLOAD_QUEUE_NAME}
     GMA_AWS_BUCKET_NAME: ${env:GMA_AWS_BUCKET_NAME}
     GMA_AWS_ANALYZER_QUEUE_NAME: ${env:GMA_AWS_ANALYZER_QUEUE_NAME}
     GMA_MIXER_API_CLIENT_ID: ${env:GMA_MIXER_API_CLIENT_ID}
-    GMA_MIXER_API_CHANNEL_ID: ${env:GMA_MIXER_API_CHANNEL_ID}}
+    GMA_MIXER_API_CHANNEL_ID: ${env:GMA_MIXER_API_CHANNEL_ID}
+    GMA_AWS_STEP_FN_ARN: ${self:resources.Outputs.RecordingDownloadQueue.Value}
 
 functions:
   mixer:
     handler: mixer.handler
+  step_fn_starter:
+    handler: step_fns.starter
+    events:
+       - sqs:
+          arn:
+            Fn::GetAtt:
+              - RecordingDownloadQueue
+              - Arn
   sfn_get_recording_size:
     handler: step_fns.get_recording_size
   sfn_initiate_multipart_upload:
@@ -131,14 +140,15 @@ stepFunctions:
           FinalizeRecording:
             Type: Task
             Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_finalize_recording
-            End: true
+            Next: EndWithSuccess
           AbortMultipartUpload:
             Type: Task
             Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_abort_upload
             Next: EndWithFailure
           EndWithFailure:
-            Type: Pass
-            End: true
+            Type: Fail
+          EndWithSuccess:
+            Type: Success
 
 plugins:
   - serverless-dynamodb-local
@@ -169,37 +179,41 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-    RecordingDeadLetterQueue:
+    RecordingDownloadDeadLetterQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: "RecordingDeadLetterQueue"
+        QueueName: "RecordingDownloadDeadLetterQueue"
     RecordingDownloadQueue:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: "RecordingDownloadQueue"
         VisibilityTimeout: 14400
         RedrivePolicy:
-          deadLetterTargetArn: ${self:resources.Outputs.RecordingDeadLetterQueue.Value}
+          deadLetterTargetArn: ${self:resources.Outputs.RecordingDownloadDeadLetterQueue.Value}
           maxReceiveCount: 4
-    AnalyzerDeadLetterQueue:
+    RecordingAnalyzerDeadLetterQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: "AnalyzerDeadLetterQueue"
-    VideoAnalyzerQueue:
+        QueueName: "RecordingAnalyzerDeadLetterQueue"
+    RecordingAnalyzerQueue:
       Type: AWS::SQS::Queue
       Properties:
-        QueueName: "VideoAnalyzerQueue"
+        QueueName: "RecordingAnalyzerQueue"
         VisibilityTimeout: 43200
         RedrivePolicy:
-          deadLetterTargetArn: ${self:resources.Outputs.AnalyzerDeadLetterQueue.Value}
+          deadLetterTargetArn: ${self:resources.Outputs.RecordingAnalyzerDeadLetterQueue.Value}
           maxReceiveCount: 4
 
   Outputs:
-    RecordingDeadLetterQueue:
+    RecordingDownloadQueue:
+      Description: "The ARN of the recording download queue"
+      Value:
+        "Fn::GetAtt": [ RecordingDownloadQueue, Arn ]
+    RecordingDownloadDeadLetterQueue:
       Description: "The ARN of the recording dead letter queue"
       Value:
-        "Fn::GetAtt": [ RecordingDeadLetterQueue, Arn ]
-    AnalyzerDeadLetterQueue:
+        "Fn::GetAtt": [ RecordingDownloadDeadLetterQueue, Arn ]
+    RecordingAnalyzerDeadLetterQueue:
       Description: "The ARN of the anaylzer dead letter queue"
       Value:
-        "Fn::GetAtt": [ AnalyzerDeadLetterQueue, Arn ]
+        "Fn::GetAtt": [ RecordingAnalyzerDeadLetterQueue, Arn ]

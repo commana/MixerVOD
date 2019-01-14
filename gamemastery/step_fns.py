@@ -2,12 +2,15 @@ import botocore.vendored.requests as requests
 import boto3
 import os
 import io
+import json
 
 RANGE_SIZE = 500 * 1024 * 1024 # KEEP IN SYNC WITH STEP FUNCTION
 GMA_AWS_BUCKET_NAME = os.environ['GMA_AWS_BUCKET_NAME']
 GMA_AWS_ANALYZER_QUEUE_NAME = os.environ['GMA_AWS_ANALYZER_QUEUE_NAME']
+GMA_AWS_STEP_FN_ARN = os.environ['GMA_AWS_STEP_FN_ARN']
 s3 = boto3.client('s3')
 sqs = boto3.resource('sqs')
+sfn = boto3.client('stepfunctions')
 
 # See https://stackoverflow.com/a/26853961
 def merge_two_dicts(x, y):
@@ -112,3 +115,13 @@ def finalize_recording(event, context):
         "queue_message_id": response.get('MessageId'),
         "queue_message_md5": response.get('MD5OfMessageBody')
     })
+
+def starter(event, context):
+    """
+    Responsible for starting the step function.
+    """
+    responses = []
+    for entry in event['Records']:
+        responses.append(merge_two_dicts(entry, sfn.start_execution(stateMachineArn=GMA_AWS_STEP_FN_ARN, input=entry['body'])))
+    # TODO: This removes all records from the queue, even if the state machine fails eventually!
+    return responses

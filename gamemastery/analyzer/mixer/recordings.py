@@ -1,7 +1,7 @@
 """
 Download the list of available recordings of a channel and turn it into generic recording objects.
 """
-import requests
+import botocore.vendored.requests as requests
 import analyzer.preparation.recording as gr
 
 def get_recordings(mixer_client_id, mixer_channel_id):
