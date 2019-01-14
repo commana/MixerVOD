@@ -98,6 +98,11 @@
     "CompleteMultipartUpload": {
       "Type": "Task",
       "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:complete_upload",
+      "Next": "FinalizeRecording"
+    },
+    "FinalizeRecording": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:eu-central-1:618680912473:function:finalize_recording",
       "End": true
     },
     "AbortMultipartUpload": {

@@ -1,11 +1,13 @@
-import requests
+import botocore.vendored.requests as requests
 import boto3
 import os
 import io
 
 RANGE_SIZE = 500 * 1024 * 1024 # KEEP IN SYNC WITH STEP FUNCTION
 GMA_AWS_BUCKET_NAME = os.environ['GMA_AWS_BUCKET_NAME']
+GMA_AWS_ANALYZER_QUEUE_NAME = os.environ['GMA_AWS_ANALYZER_QUEUE_NAME']
 s3 = boto3.client('s3')
+sqs = boto3.resource('sqs')
 
 # See https://stackoverflow.com/a/26853961
 def merge_two_dicts(x, y):
@@ -103,22 +105,10 @@ def finalize_recording(event, context):
     """
     Mark download as complete so that the analyzer can start its work
     """
-    # Mark as downloaded in DynamoDB
     # Store recording in SQS
-    pass
-
-max_size_in_gb = 4 * 1024 * 1024 * 1024
-
-event = {}
-event['id'] = "DEADBEEF"
-event['url'] = "https://vodcontent-2008.xboxlive.com/channel-47094669-public/918ff7e8-13af-43ba-9f92-88574919408c/source.mp4"
-
-event2 = get_recording_size(event, None)
-if int(event2['size']) > max_size_in_gb:
-    raise Exception("VOD has {} bytes, a maximum of {} is allowed".format(event2['size'], max_size_in_gb))
-event3 = initiate_multipart_upload(event2, None)
-while event3['is_completed'] == False:
-    event3['number'] = 1
-    eventX = upload_part(event3, None)
-    event3 = merge_partial_uploads([eventX], None)
-event4 = complete_upload(event3, None)
+    queue = sqs.get_queue_by_name(QueueName=GMA_AWS_ANALYZER_QUEUE_NAME)
+    response = queue.send_message(MessageBody=json.dumps(event))
+    return merge_two_dicts(event, {
+        "queue_message_id": response.get('MessageId'),
+        "queue_message_md5": response.get('MD5OfMessageBody')
+    })

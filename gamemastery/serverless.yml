@@ -4,22 +4,140 @@ provider:
   name: aws
   versionFunctions: false
   region: eu-central-1
+  runtime: python2.7
+  environment:
+    GMA_AWS_DB_TABLE_NAME: ${env:GMA_AWS_DB_TABLE_NAME}
+    GMA_AWS_DOWNLOAD_QUEUE_NAME: ${env:GMA_AWS_DOWNLOAD_QUEUE_NAME
+    GMA_AWS_BUCKET_NAME: ${env:GMA_AWS_BUCKET_NAME}
+    GMA_AWS_ANALYZER_QUEUE_NAME: ${env:GMA_AWS_ANALYZER_QUEUE_NAME}
+    GMA_MIXER_API_CLIENT_ID: ${env:GMA_MIXER_API_CLIENT_ID}
+    GMA_MIXER_API_CHANNEL_ID: ${env:GMA_MIXER_API_CHANNEL_ID}}
 
 functions:
   mixer:
     handler: mixer.handler
-    runtime: python2.7
+  sfn_get_recording_size:
+    handler: step_fns.get_recording_size
+  sfn_initiate_multipart_upload:
+    handler: step_fns.initiate_multipart_upload
+  sfn_upload_part:
+    handler: step_fns.upload_part
+    timeout: 600
+  sfn_merge_partial_uploads:
+    handler: step_fns.merge_partial_uploads
+  sfn_complete_upload:
+    handler: step_fns.complete_upload
+  sfn_abort_upload:
+    handler: step_fns.abort_upload
+  sfn_finalize_recording:
+    handler: step_fns.finalize_recording
 
 stepFunctions:
   stateMachines:
-    MixerDownload:
-      name: MixerDownloadStateMachine
+    MixerRecording:
+      name: MixerRecordingStateMachine
       definition:
-        StartAt: GetDownloadSize
+        StartAt: GetRecordingSize
         States:
-          GetDownloadSize:
+          GetRecordingSize:
             Type: Task
-            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-mixer
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_get_recording_size
+            Next: CheckMaximumFileSize
+          CheckMaximumFileSize:
+            Type: Choice
+            Choices:
+              -
+                Variable: $.size
+                NumericLessThanEquals: 8589934592
+                Next: InitiateMultipartUpload
+            Default: EndWithFailure
+          InitiateMultipartUpload:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_initiate_multipart_upload
+            Next: IsUploadFinished
+          IsUploadFinished:
+            Type: Choice
+            Choices:
+              -
+                Variable: $.is_completed
+                BooleanEquals: false
+                Next: UploadLoop
+            Default: CompleteMultipartUpload
+          UploadLoop:
+            Type: Parallel
+            Next: MergePartialUploads
+            Branches:
+              -
+                StartAt: First
+                States:
+                  First:
+                    Type: Task
+                    Parameters:
+                      number: 1
+                      url.$: $.url
+                      id.$: $.id
+                      part_base_no.$: $.part_base_no
+                      upload_id.$: $.upload_id
+                      size.$: $.size
+                      is_completed.$: $.is_completed
+                      completed_parts.$: $.completed_parts
+                    Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_upload_part
+                    End: true
+              -
+                StartAt: Second
+                States:
+                  Second:
+                    Type: Task
+                    Parameters:
+                      number: 2
+                      url.$: $.url
+                      id.$: $.id
+                      part_base_no.$: $.part_base_no
+                      upload_id.$: $.upload_id
+                      size.$: $.size
+                      is_completed.$: $.is_completed
+                      completed_parts.$: $.completed_parts
+                    Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_upload_part
+                    End: true
+              -
+                StartAt: Third
+                States:
+                    Third:
+                      Type: Task
+                      Parameters:
+                        number: 3
+                        url.$: $.url
+                        id.$: $.id
+                        part_base_no.$: $.part_base_no
+                        upload_id.$: $.upload_id
+                        size.$: $.size
+                        is_completed.$: $.is_completed
+                        completed_parts.$: $.completed_parts
+                      Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_upload_part
+                      End: true
+            Catch:
+              -
+                ErrorEquals:
+                  - States.ALL
+                Next: AbortMultipartUpload
+          MergePartialUploads:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_merge_partial_uploads
+            Next: IsUploadFinished
+          CompleteMultipartUpload:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_complete_upload
+            Next: FinalizeRecording
+          FinalizeRecording:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_finalize_recording
+            End: true
+          AbortMultipartUpload:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_abort_upload
+            Next: EndWithFailure
+          EndWithFailure:
+            Type: Pass
             End: true
 
 plugins:
@@ -63,9 +181,25 @@ resources:
         RedrivePolicy:
           deadLetterTargetArn: ${self:resources.Outputs.RecordingDeadLetterQueue.Value}
           maxReceiveCount: 4
+    AnalyzerDeadLetterQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: "AnalyzerDeadLetterQueue"
+    VideoAnalyzerQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: "VideoAnalyzerQueue"
+        VisibilityTimeout: 43200
+        RedrivePolicy:
+          deadLetterTargetArn: ${self:resources.Outputs.AnalyzerDeadLetterQueue.Value}
+          maxReceiveCount: 4
 
   Outputs:
     RecordingDeadLetterQueue:
-      Description: "The ARN of the dead letter queue"
+      Description: "The ARN of the recording dead letter queue"
       Value:
         "Fn::GetAtt": [ RecordingDeadLetterQueue, Arn ]
+    AnalyzerDeadLetterQueue:
+      Description: "The ARN of the anaylzer dead letter queue"
+      Value:
+        "Fn::GetAtt": [ AnalyzerDeadLetterQueue, Arn ]
