@@ -12,6 +12,36 @@ provider:
     GMA_AWS_ANALYZER_QUEUE_NAME: ${env:GMA_AWS_ANALYZER_QUEUE_NAME}
     GMA_MIXER_API_CLIENT_ID: ${env:GMA_MIXER_API_CLIENT_ID}
     GMA_MIXER_API_CHANNEL_ID: ${env:GMA_MIXER_API_CHANNEL_ID}
+  iamRoleStatements:
+    -
+      Effect: Allow
+      Action:
+        - sqs:GetQueueUrl
+        - sqs:ReceiveMessage
+        - sqs:SendMessage
+        - sqs:DeleteMessage
+      Resource:
+        Fn::GetAtt:
+          - RecordingDownloadQueue
+          - Arn
+    -
+      Effect: Allow
+      Action:
+        - sqs:GetQueueUrl
+        - sqs:SendMessage
+      Resource:
+        Fn::GetAtt:
+          - RecordingAnalyzerQueue
+          - Arn
+    -
+      Effect: Allow
+      Action:
+        - dynamodb:BatchGetItem
+        - dynamodb:BatchWriteItem
+      Resource:
+        Fn::GetAtt:
+          - GameRecordings
+          - Arn
 
 functions:
   mixer:
