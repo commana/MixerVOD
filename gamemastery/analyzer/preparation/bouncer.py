@@ -12,3 +12,4 @@ class Bouncer(object):
     def register(self, recordings):
         new_recordings = self.store.filter_known(recordings)
         self.queue.enqueue(new_recordings)
+        self.store.remember(new_recordings)

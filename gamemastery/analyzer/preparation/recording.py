@@ -17,3 +17,21 @@ class Recording(object):
         self.fps = data_dict['fps']
         self.bitrate = data_dict['bitrate']
         self.url = data_dict['url']
+
+    # See https://stackoverflow.com/a/25176504
+    def __eq__(self, other):
+        """Overrides the default implementation"""
+        if isinstance(other, Recording):
+            return self.id == other.id and self.platform == other.platform
+        return NotImplemented
+
+    def __ne__(self, other):
+        """Overrides the default implementation (unnecessary in Python 3)"""
+        x = self.__eq__(other)
+        if x is not NotImplemented:
+            return not x
+        return NotImplemented
+
+    def __hash__(self):
+        """Overrides the default implementation"""
+        return hash(tuple(sorted(self.__dict__.items())))

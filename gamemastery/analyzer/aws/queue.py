@@ -12,10 +12,12 @@ class Queue(object):
     
     def enqueue(self, recordings):
         """Send all recordings to the queue"""
-        recs = recordings
+        recs = map(lambda x: { 'Id': str(x.id), 'MessageBody': json.dumps(vars(x))}, recordings)
+
         # Whe can batch-send at most 10 items to the queue
         while len(recs) > 0:
             batch_recordings = recs[0:9]
             response = self.sqs.send_messages(Entries=batch_recordings)
-            print(response.get('Failed'))
+            # TODO: Handle response.get('Failed')
+            #print(response.get('Failed'))
             recs = recs[10:]
