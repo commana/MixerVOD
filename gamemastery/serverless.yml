@@ -12,19 +12,14 @@ provider:
     GMA_AWS_ANALYZER_QUEUE_NAME: ${env:GMA_AWS_ANALYZER_QUEUE_NAME}
     GMA_MIXER_API_CLIENT_ID: ${env:GMA_MIXER_API_CLIENT_ID}
     GMA_MIXER_API_CHANNEL_ID: ${env:GMA_MIXER_API_CHANNEL_ID}
-    GMA_AWS_STEP_FN_ARN: ${self:resources.Outputs.RecordingDownloadQueue.Value}
 
 functions:
   mixer:
     handler: mixer.handler
-  step_fn_starter:
-    handler: step_fns.starter
     events:
-       - sqs:
-          arn:
-            Fn::GetAtt:
-              - RecordingDownloadQueue
-              - Arn
+      - schedule: rate(1 day)
+  sfn_poll_queue:
+    handler: step_fns.poll_queue
   sfn_get_recording_size:
     handler: step_fns.get_recording_size
   sfn_initiate_multipart_upload:
@@ -45,9 +40,23 @@ stepFunctions:
   stateMachines:
     MixerRecording:
       name: MixerRecordingStateMachine
+      events:
+        - schedule: rate(12 hours)
       definition:
-        StartAt: GetRecordingSize
+        StartAt: PollQueue
         States:
+          PollQueue:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_poll_queue
+            Next: CheckForWork
+          CheckForWork:
+            Type: Choice
+            Choices:
+              -
+                Variable: $.id
+                NumericGreaterThan: -1
+                Next: GetRecordingSize
+            Default: EndWithSuccess
           GetRecordingSize:
             Type: Task
             Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_get_recording_size
@@ -90,6 +99,9 @@ stepFunctions:
                       size.$: $.size
                       is_completed.$: $.is_completed
                       completed_parts.$: $.completed_parts
+                      message_id.$: $.message_id
+                      message_receipt_handle.$: $.message_receipt_handle
+                      key.$: $.key
                     Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_upload_part
                     End: true
               -
@@ -106,6 +118,9 @@ stepFunctions:
                       size.$: $.size
                       is_completed.$: $.is_completed
                       completed_parts.$: $.completed_parts
+                      message_id.$: $.message_id
+                      message_receipt_handle.$: $.message_receipt_handle
+                      key.$: $.key
                     Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_upload_part
                     End: true
               -
@@ -122,6 +137,9 @@ stepFunctions:
                         size.$: $.size
                         is_completed.$: $.is_completed
                         completed_parts.$: $.completed_parts
+                        message_id.$: $.message_id
+                        message_receipt_handle.$: $.message_receipt_handle
+                        key.$: $.key
                       Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_upload_part
                       End: true
             Catch:
@@ -148,7 +166,7 @@ stepFunctions:
           EndWithFailure:
             Type: Fail
           EndWithSuccess:
-            Type: Success
+            Type: Succeed
 
 plugins:
   - serverless-dynamodb-local
@@ -187,7 +205,7 @@ resources:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: "RecordingDownloadQueue"
-        VisibilityTimeout: 14400
+        VisibilityTimeout: 3600
         RedrivePolicy:
           deadLetterTargetArn: ${self:resources.Outputs.RecordingDownloadDeadLetterQueue.Value}
           maxReceiveCount: 4
