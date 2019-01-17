@@ -108,9 +108,12 @@ def complete_upload(event, context):
         'Parts': event['completed_parts']
     }
     s3.complete_multipart_upload(Bucket=GMA_AWS_BUCKET_NAME, Key=event['key'], UploadId=event['upload_id'], MultipartUpload=part_info)
+    s3url = "https://s3.amazonaws.com/{}/{}".format(GMA_AWS_BUCKET_NAME, event['key'])
     del event['completed_parts']
     del event['is_completed']
-    return event
+    return merge_two_dicts(event, {
+        'location': s3url
+    })
 
 def abort_upload(event, context):
     s3.abort_multipart_upload(Bucket=GMA_AWS_BUCKET_NAME, Key=event['key'], UploadId=event['upload_id'])

@@ -42,7 +42,13 @@ provider:
         Fn::GetAtt:
           - GameRecordings
           - Arn
-
+    -
+      Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:AbortMultipartUpload
+      Resource:
+        Fn::Join: ['', [Fn::GetAtt: [ RecordingBucket, Arn ], '/*'] ]
 functions:
   mixer:
     handler: mixer.handler
@@ -96,7 +102,7 @@ stepFunctions:
             Choices:
               -
                 Variable: $.size
-                NumericLessThanEquals: 8589934592
+                NumericLessThanEquals: 8589934592 # 8 Gigabyte MAX
                 Next: InitiateMultipartUpload
             Default: EndWithFailure
           InitiateMultipartUpload:
@@ -251,6 +257,18 @@ resources:
         RedrivePolicy:
           deadLetterTargetArn: ${self:resources.Outputs.RecordingAnalyzerDeadLetterQueue.Value}
           maxReceiveCount: 4
+    RecordingBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${env:GMA_AWS_BUCKET_NAME}
+        VersioningConfiguration:
+          Status: Suspended
+        LifecycleConfiguration:
+          Rules:
+            -
+              AbortIncompleteMultipartUpload:
+                DaysAfterInitiation: 1
+              Status: Enabled
 
   Outputs:
     RecordingDownloadQueue:
