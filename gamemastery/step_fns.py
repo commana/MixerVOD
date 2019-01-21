@@ -35,7 +35,10 @@ def get_recording_size(event, context):
     Get the size of the video file
     """
     r = requests.head(event['url'])
-    size = int(r.headers['Content-Length'])
+    if r.status_code == 200:
+        size = int(r.headers['Content-Length'])
+    else:
+        size = -1
     return merge_two_dicts(event, {
         "size": size,
         "is_completed": False
@@ -111,6 +114,8 @@ def complete_upload(event, context):
     s3url = "https://s3.amazonaws.com/{}/{}".format(GMA_AWS_BUCKET_NAME, event['key'])
     del event['completed_parts']
     del event['is_completed']
+    del event['upload_id']
+    del event['part_base_no']
     return merge_two_dicts(event, {
         'location': s3url
     })
@@ -131,13 +136,23 @@ def finalize_recording(event, context):
     # TODO: Error handling
 
     # Remove from initial queue
+    remove_from_queue(event)
+
+    del event['message_id']
+    del event['message_receipt_handle']
+    return merge_two_dicts(event, {
+        "queue_message_id": response.get('MessageId'),
+        "queue_message_md5": response.get('MD5OfMessageBody')
+    })
+
+def ignore_recording(event, context):
+    remove_from_queue(event)
+    return event
+
+def remove_from_queue(event):
     download_queue = sqs.get_queue_by_name(QueueName=GMA_AWS_DOWNLOAD_QUEUE_NAME)
     response = download_queue.delete_messages(Entries=[
         {'Id': event['message_id'], 'ReceiptHandle': event['message_receipt_handle']}
     ])
     # TODO: Error handling
-
-    return merge_two_dicts(event, {
-        "queue_message_id": response.get('MessageId'),
-        "queue_message_md5": response.get('MD5OfMessageBody')
-    })
+    return response

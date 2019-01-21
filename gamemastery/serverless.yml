@@ -71,6 +71,8 @@ functions:
     handler: step_fns.abort_upload
   sfn_finalize_recording:
     handler: step_fns.finalize_recording
+  sfn_ignore_recording:
+    handler: step_fns.ignore_recording
 
 stepFunctions:
   stateMachines:
@@ -100,10 +102,15 @@ stepFunctions:
           CheckMaximumFileSize:
             Type: Choice
             Choices:
-              -
-                Variable: $.size
-                NumericLessThanEquals: 8589934592 # 8 Gigabyte MAX
+              - And:
+                - Variable: "$.size"
+                  NumericGreaterThan: 0
+                - Variable: "$.size"
+                  NumericLessThanEquals: 8589934592
                 Next: InitiateMultipartUpload
+              - Variable: $.size
+                NumericLessThanEquals: -1
+                Next: IgnoreRecording
             Default: EndWithFailure
           InitiateMultipartUpload:
             Type: Task
@@ -183,6 +190,7 @@ stepFunctions:
                 ErrorEquals:
                   - States.ALL
                 Next: AbortMultipartUpload
+                ResultPath: $.error
           MergePartialUploads:
             Type: Task
             Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_merge_partial_uploads
@@ -194,6 +202,10 @@ stepFunctions:
           FinalizeRecording:
             Type: Task
             Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_finalize_recording
+            Next: EndWithSuccess
+          IgnoreRecording:
+            Type: Task
+            Resource: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:service}-${opt:stage}-sfn_ignore_recording
             Next: EndWithSuccess
           AbortMultipartUpload:
             Type: Task
