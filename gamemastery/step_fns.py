@@ -3,6 +3,7 @@ import boto3
 import os
 import io
 import json
+import math
 
 RANGE_SIZE = 500 * 1024 * 1024 # KEEP IN SYNC WITH STEP FUNCTION
 GMA_AWS_BUCKET_NAME = os.environ['GMA_AWS_BUCKET_NAME']
@@ -62,6 +63,8 @@ def upload_part(event, context):
     part_no = event['number'] + event['part_base_no']
     range_start = (part_no - 1) * RANGE_SIZE
     range_end = range_start + RANGE_SIZE - 1
+    if range_start > event['size']:
+        return merge_two_dicts(event, {"part": {}})
 
     part_file = "/tmp/{}_{}_{}.mp4".format(event['id'], event['upload_id'], part_no)
     headers = {"Range": "bytes={:d}-{:d}".format(range_start, range_end)}
@@ -96,7 +99,9 @@ def merge_partial_uploads(event, context):
             result = p.copy()
             del result['part']
             del result['number']
-        result['completed_parts'].append(p['part'])
+        # Do not add empty parts
+        if bool(p['part']):
+            result['completed_parts'].append(p['part'])
 
     completed_size = len(result['completed_parts']) * RANGE_SIZE
     result['is_completed'] = completed_size >= result['size']
