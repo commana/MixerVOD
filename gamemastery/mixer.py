@@ -17,15 +17,22 @@ def handler(event, context):
     gma_mixer_channel_id = os.environ['GMA_MIXER_API_CHANNEL_ID']
     gma_aws_db_table_name = os.environ['GMA_AWS_DB_TABLE_NAME']
     gma_aws_download_queue_name = os.environ['GMA_AWS_DOWNLOAD_QUEUE_NAME']
-    #s3_bucket_name = os.environ['MIXER_S3_BUCKET']
 
+    sqs = boto3.resource('sqs')
     if IS_OFFLINE:
         db = boto3.resource('dynamodb', region_name='localhost', endpoint_url='http://localhost:8000')
     else:
         db = boto3.resource('dynamodb')
-    s3 = boto3.resource('s3')
-    sqs = boto3.resource('sqs')
 
+    bouncer = gb.Bouncer(AWSStore.Store(db, gma_aws_db_table_name))
+    
     recordings = gmr.get_recordings(gma_mixer_client_id, gma_mixer_channel_id)
-    b = gb.Bouncer(AWSStore.Store(db, gma_aws_db_table_name), AWSQueue.Queue(sqs.get_queue_by_name(QueueName=gma_aws_download_queue_name)))
-    b.register(recordings)
+    new_recordings = bouncer.check(recordings)
+
+    # Previous version with direct SQS access
+    #queue = AWSQueue.Queue(sqs.get_queue_by_name(QueueName=gma_aws_download_queue_name))
+    #queue.enqueue(new_recordings)
+    
+    # New hls-based version with SNS fanout
+    #TODO
+    gmr.get_hls_recordings(gma_mixer_client_id, gma_mixer_channel_id)

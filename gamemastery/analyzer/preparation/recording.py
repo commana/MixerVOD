@@ -16,6 +16,7 @@ class Recording(object):
         self.height = data_dict['height']
         self.fps = data_dict['fps']
         self.bitrate = data_dict['bitrate']
+        self.base_url = data_dict['base_url']
         self.url = data_dict['url']
 
     # See https://stackoverflow.com/a/25176504

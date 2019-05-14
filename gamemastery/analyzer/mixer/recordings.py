@@ -24,7 +24,8 @@ def get_recordings(mixer_client_id, mixer_channel_id):
             # TODO: Handle other states (Issue #2)
             continue
         # We assume that all VODs have the same baseUrl
-        video_url = rec["vods"][0]["baseUrl"] + "source.mp4"
+        base_url = rec["vods"][0]["baseUrl"]
+        video_url = base_url + "source.mp4"
 
         # We further assume that the first VOD entry has all information plus it represents the mp4 version!
         data = rec["vods"][0]["data"]
@@ -44,7 +45,11 @@ def get_recordings(mixer_client_id, mixer_channel_id):
             "height": height,
             "fps": fps,
             "bitrate": bitrate,
+            "base_url": base_url,
             "url": video_url
         }))
 
     return recording_infos
+
+def get_hls_recordings(mixer_client_id, mixer_channel_id):
+    pass
