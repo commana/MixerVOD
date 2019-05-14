@@ -1,8 +1,8 @@
 .serverless
 node_modules
 .dynamodb
-package-lock.json
 .DS_Store
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
